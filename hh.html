@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HARDCORE KINGDOM — Minecraft Bedrock Server</title>
+
+<meta name="description"
+content="HARDCORE KINGDOM — Minecraft Bedrock Hardcore сервер. Кланы, приват территории, TPA, Home, RTP, Warp и Action & Stuff.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#080b08;
+    color:#fff;
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font-family:inherit;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#080b08;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#3d8b36;
+    border-radius:5px;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-5;
+
+    background:
+    radial-gradient(circle at 20% 10%,rgba(76,175,80,.12),transparent 25%),
+    radial-gradient(circle at 80% 50%,rgba(30,120,50,.08),transparent 30%),
+    linear-gradient(#070907,#0b100b);
+}
+
+.noise{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1000;
+    opacity:.035;
+
+    background-image:
+    url("https://www.transparenttextures.com/patterns/noise.png");
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:500;
+
+    background:rgba(5,8,5,.88);
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+    max-width:1450px;
+    margin:auto;
+
+    height:78px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 25px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    font-family:"Press Start 2P";
+    font-size:14px;
+}
+
+.logo-block{
+    width:40px;
+    height:40px;
+
+    background:
+    linear-gradient(135deg,#75c64b 0 25%,#519c38 25% 55%,#326d2d 55%);
+
+    border:3px solid #182518;
+
+    box-shadow:
+    inset 0 -8px rgba(0,0,0,.18),
+    0 4px 0 #000;
+}
+
+.nav-links{
+    display:flex;
+    gap:26px;
+    align-items:center;
+}
+
+.nav-links a{
+    color:#d7ddd6;
+    font-size:14px;
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:#79e35e;
+}
+
+.menu-btn{
+    display:none;
+
+    background:#263426;
+    border:2px solid #507c4b;
+
+    color:#fff;
+
+    padding:11px 13px;
+    cursor:pointer;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:850px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    padding:140px 20px 90px;
+
+    background:
+    linear-gradient(
+        rgba(4,8,4,.40),
+        rgba(4,8,4,.92)
+    ),
+    url("https://games.fozzy.com/_ipx/_/images/carousel/minecraft-bedrock-screenshot-4.jpg")
+    center/cover;
+
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(0,0,0,.75),
+        transparent 60%,
+        rgba(0,0,0,.65)
+    );
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    width:min(1200px,100%);
+
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    background:rgba(15,30,15,.85);
+
+    border:1px solid #4f9148;
+
+    padding:10px 17px;
+
+    font-size:12px;
+    font-weight:800;
+
+    margin-bottom:25px;
+
+    box-shadow:0 0 30px rgba(74,180,70,.18);
+}
+
+.online-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+
+    background:#5eff65;
+
+    box-shadow:0 0 12px #5eff65;
+}
+
+.hero h1{
+    font-family:"Press Start 2P";
+
+    font-size:clamp(32px,6vw,78px);
+
+    line-height:1.25;
+
+    text-shadow:
+    0 7px #172116,
+    0 12px 30px #000;
+
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#71df58;
+}
+
+.hero-subtitle{
+    max-width:750px;
+    margin:0 auto 35px;
+
+    color:#dce5da;
+
+    font-size:19px;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    cursor:pointer;
+
+    padding:17px 25px;
+
+    font-weight:900;
+    font-size:14px;
+
+    transition:.2s;
+
+    box-shadow:
+    inset 0 -5px rgba(0,0,0,.2),
+    0 5px 0 rgba(0,0,0,.5);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn-green{
+    background:#55a944;
+    color:#fff;
+}
+
+.btn-dark{
+    background:#1e291d;
+    color:#fff;
+
+    border:1px solid #587153;
+}
+
+.btn-orange{
+    background:#b86a28;
+}
+
+/* =========================================================
+   SERVER PANEL
+========================================================= */
+
+.server-panel{
+    max-width:1050px;
+    margin:-70px auto 0;
+
+    position:relative;
+    z-index:10;
+
+    padding:20px;
+
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+
+    background:rgba(16,22,15,.96);
+
+    border:1px solid #40583d;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.5),
+    inset 0 1px rgba(255,255,255,.05);
+}
+
+.server-item{
+    padding:20px;
+
+    border-right:1px solid #293629;
+}
+
+.server-item:last-child{
+    border-right:0;
+}
+
+.server-label{
+    color:#82927e;
+
+    font-size:11px;
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.server-value{
+    font-size:19px;
+    font-weight:900;
+}
+
+.ip{
+    color:#74db58;
+    cursor:pointer;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+    max-width:1450px;
+    margin:auto;
+
+    padding:100px 25px;
+}
+
+.section{
+    margin-bottom:120px;
+}
+
+.section-title{
+    font-family:"Press Start 2P";
+
+    font-size:clamp(20px,3vw,34px);
+
+    margin-bottom:15px;
+}
+
+.section-title span{
+    color:#65c850;
+}
+
+.section-description{
+    color:#aeb9aa;
+    max-width:750px;
+
+    line-height:1.7;
+
+    margin-bottom:35px;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.features{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+}
+
+.feature{
+    min-height:230px;
+
+    padding:25px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #172016,
+        #0d120d
+    );
+
+    border:1px solid #293b27;
+
+    position:relative;
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.feature:hover{
+    transform:translateY(-7px);
+
+    border-color:#5ca94d;
+
+    box-shadow:
+    0 20px 45px rgba(56,145,53,.16);
+}
+
+.feature::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    right:-35px;
+    bottom:-35px;
+
+    background:#315c2d;
+
+    opacity:.13;
+
+    transform:rotate(25deg);
+}
+
+.feature-icon{
+    font-size:43px;
+    margin-bottom:20px;
+}
+
+.feature h3{
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+.feature p{
+    color:#99a696;
+    line-height:1.6;
+    font-size:14px;
+}
+
+/* =========================================================
+   HARDCORE
+========================================================= */
+
+.hardcore{
+    min-height:450px;
+
+    padding:50px;
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(7,11,7,.96),
+        rgba(7,11,7,.66)
+    ),
+    url("https://www.9minecraft.net/wp-content/uploads/2023/10/minecraft-savanna-village-seed-pe-bedrock.jpeg")
+    center/cover;
+
+    border:1px solid #523a2c;
+}
+
+.hardcore-content{
+    max-width:700px;
+}
+
+.hardcore h2{
+    font-family:"Press Start 2P";
+
+    font-size:clamp(22px,4vw,40px);
+
+    margin-bottom:25px;
+}
+
+.hardcore h2 span{
+    color:#ff7347;
+}
+
+.hardcore p{
+    color:#d5d5d5;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.rules-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.rule{
+    background:rgba(0,0,0,.4);
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:13px;
+
+    font-size:13px;
+}
+
+/* =========================================================
+   COMMANDS
+========================================================= */
+
+.command-search{
+    width:100%;
+
+    padding:17px 20px;
+
+    background:#101610;
+
+    border:1px solid #334932;
+
+    color:#fff;
+
+    outline:none;
+
+    margin-bottom:20px;
+
+    font-size:15px;
+}
+
+.command-search:focus{
+    border-color:#65c950;
+}
+
+.commands{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:12px;
+}
+
+.command{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:15px;
+
+    padding:16px;
+
+    background:#111711;
+
+    border:1px solid #253625;
+
+    transition:.2s;
+}
+
+.command:hover{
+    border-color:#4d8746;
+    background:#151d14;
+}
+
+.command code{
+    color:#74db58;
+    font-family:monospace;
+    font-size:14px;
+}
+
+.command small{
+    color:#839080;
+}
+
+.copy{
+    flex-shrink:0;
+
+    padding:8px 10px;
+
+    border:1px solid #40553d;
+
+    background:#202b1f;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:11px;
+}
+
+/* =========================================================
+   ADDONS
+========================================================= */
+
+.addons{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:20px;
+}
+
+.addon{
+    background:#111711;
+
+    border:1px solid #2b3e29;
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.addon:hover{
+    transform:translateY(-5px);
+}
+
+.addon-image{
+    height:180px;
+
+    background-position:center;
+    background-size:cover;
+}
+
+.addon-body{
+    padding:23px;
+}
+
+.addon-body h3{
+    margin-bottom:12px;
+}
+
+.addon-body p{
+    color:#929e90;
+    line-height:1.6;
+    font-size:14px;
+}
+
+/* =========================================================
+   CLANS
+========================================================= */
+
+.clan-area{
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:25px;
+}
+
+.clan-card{
+    min-height:300px;
+
+    padding:35px;
+
+    background:
+    linear-gradient(
+        140deg,
+        #182116,
+        #0d110d
+    );
+
+    border:1px solid #30442e;
+}
+
+.banner{
+    width:85px;
+    height:115px;
+
+    margin-bottom:25px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eee 0 15%,
+        #54a949 15% 40%,
+        #1d4d20 40% 65%,
+        #101810 65%
+    );
+
+    clip-path:polygon(
+    0 0,
+    85% 0,
+    85% 100%,
+    43% 83%,
+    0 100%
+    );
+
+    box-shadow:0 5px 15px #000;
+}
+
+.clan-card h3{
+    font-family:"Press Start 2P";
+
+    font-size:20px;
+
+    margin-bottom:15px;
+}
+
+.clan-card p{
+    color:#9ba798;
+    line-height:1.7;
+}
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+}
+
+.gallery img{
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.35s;
+
+    filter:saturate(.9);
+}
+
+.gallery a{
+    overflow:hidden;
+
+    border:1px solid #273727;
+
+    background:#101510;
+}
+
+.gallery a:hover img{
+    transform:scale(1.08);
+
+    filter:saturate(1.3);
+}
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq{
+    max-width:950px;
+}
+
+.faq-item{
+    border:1px solid #293929;
+
+    margin-bottom:10px;
+
+    background:#111711;
+}
+
+.faq-question{
+    width:100%;
+
+    padding:20px;
+
+    background:none;
+
+    border:0;
+
+    color:#fff;
+
+    text-align:left;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:space-between;
+}
+
+.faq-answer{
+    display:none;
+
+    padding:0 20px 20px;
+
+    color:#96a192;
+
+    line-height:1.7;
+}
+
+.faq-item.open .faq-answer{
+    display:block;
+}
+
+/* =========================================================
+   RULES
+========================================================= */
+
+.rules{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:15px;
+}
+
+.big-rule{
+    padding:25px;
+
+    background:#111711;
+
+    border-left:4px solid #57984a;
+}
+
+.big-rule strong{
+    display:block;
+    margin-bottom:10px;
+}
+
+.big-rule p{
+    color:#929e90;
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+    text-align:center;
+
+    padding:90px 30px;
+
+    background:
+    linear-gradient(
+        rgba(12,21,11,.88),
+        rgba(12,21,11,.94)
+    ),
+    url("https://i.pinimg.com/736x/43/f2/40/43f24027f5df75db29a8b0443cb8de07.jpg")
+    center/cover;
+
+    border:1px solid #40583b;
+}
+
+.cta h2{
+    font-family:"Press Start 2P";
+
+    font-size:clamp(20px,4vw,38px);
+
+    line-height:1.6;
+
+    margin-bottom:20px;
+}
+
+.cta p{
+    color:#a9b4a6;
+
+    margin-bottom:30px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#060906;
+
+    border-top:1px solid #1e2a1d;
+
+    padding:60px 25px 30px;
+}
+
+.footer-inner{
+    max-width:1450px;
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    2fr 1fr 1fr 1fr;
+
+    gap:40px;
+}
+
+.footer-brand p{
+    color:#7f8a7c;
+
+    line-height:1.7;
+
+    max-width:450px;
+
+    margin-top:15px;
+}
+
+.footer-column h4{
+    margin-bottom:17px;
+}
+
+.footer-column a{
+    display:block;
+
+    color:#778273;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+}
+
+.footer-column a:hover{
+    color:#6dd454;
+}
+
+.copyright{
+    max-width:1450px;
+    margin:45px auto 0;
+
+    padding-top:20px;
+
+    border-top:1px solid #1b251a;
+
+    color:#657061;
+
+    font-size:12px;
+
+    text-align:center;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+
+        position:absolute;
+
+        top:78px;
+        left:0;
+
+        width:100%;
+
+        background:#090d09;
+
+        padding:25px;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .server-panel{
+        grid-template-columns:1fr;
+    }
+
+    .server-item{
+        border-right:0;
+        border-bottom:1px solid #293629;
+    }
+
+    .server-item:last-child{
+        border-bottom:0;
+    }
+
+    .clan-area{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .nav{
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:10px;
+    }
+
+    .logo-block{
+        width:32px;
+        height:32px;
+    }
+
+    .hero{
+        min-height:750px;
+    }
+
+    .hero-subtitle{
+        font-size:15px;
+    }
+
+    main{
+        padding:70px 15px;
+    }
+
+    .hardcore{
+        padding:28px 20px;
+    }
+
+    .rules-list{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+    }
+
+    .gallery img{
+        height:230px;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr;
+    }
+
+    .command{
+        align-items:flex-start;
+    }
+
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(35px);
+
+    transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particle{
+    position:fixed;
+
+    width:4px;
+    height:4px;
+
+    background:#79df63;
+
+    opacity:.35;
+
+    pointer-events:none;
+
+    animation:float 8s linear infinite;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.4;
+    }
+
+    80%{
+        opacity:.25;
+    }
+
+    100%{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+<div class="nav">
+
+<a href="#home" class="logo">
+
+<div class="logo-block"></div>
+
+HARDCORE KINGDOM
+
+</a>
+
+<button class="menu-btn" id="menuBtn">
+☰
+</button>
+
+<nav class="nav-links" id="navLinks">
+
+<a href="#server">Сервер</a>
+<a href="#hardcore">Hardcore</a>
+<a href="#commands">Команды</a>
+<a href="#clans">Кланы</a>
+<a href="#addons">Аддоны</a>
+<a href="#gallery">Галерея</a>
+<a href="#rules">Правила</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<div class="badge">
+
+<span class="online-dot"></span>
+
+SERVER ONLINE
+
+</div>
+
+<h1>
+
+HARDCORE
+<span>KINGDOM</span>
+
+</h1>
+
+<p class="hero-subtitle">
+
+Minecraft Bedrock сервер, где каждая жизнь имеет значение.
+Создавай кланы, защищай территорию, исследуй мир
+и выживай как можно дольше.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="#server" class="btn btn-green">
+⛏ НАЧАТЬ ИГРУ
+</a>
+
+<a href="#commands" class="btn btn-dark">
+📜 КОМАНДЫ
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SERVER INFO
+===================================================== -->
+
+<div class="server-panel" id="server">
+
+<div class="server-item">
+
+<div class="server-label">
+IP сервера
+</div>
+
+<div class="server-value ip" id="serverIP">
+play.hardcorekingdom.ru
+</div>
+
+</div>
+
+<div class="server-item">
+
+<div class="server-label">
+Порт
+</div>
+
+<div class="server-value">
+19132
+</div>
+
+</div>
+
+</div>
+
+
+<main>
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="section reveal">
+
+<div class="section-title">
+МИР <span>СЕРВЕРА</span>
+</div>
+
+<p class="section-description">
+Здесь собраны основные возможности HARDCORE KINGDOM.
+Система сервера построена вокруг выживания, кланов,
+защиты территорий и исследования мира.
+</p>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">❤️</div>
+<h3>Hardcore</h3>
+<p>
+Одна жизнь. Ошибка может стать последней.
+Выживай осторожно и не рискуй без причины.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏰</div>
+<h3>Кланы</h3>
+<p>
+Создавай свою команду, приглашай игроков,
+строй базу и развивай собственный клан.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🛡️</div>
+<h3>Приват</h3>
+<p>
+Защищай свои постройки и территорию
+от нежелательных действий других игроков.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏠</div>
+<h3>Home</h3>
+<p>
+Сохраняй важные точки и возвращайся
+к своей базе удобным способом.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🤝</div>
+<h3>TPA</h3>
+<p>
+Запрашивай телепортацию к другим игрокам
+и играй вместе с друзьями.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🌀</div>
+<h3>RTP</h3>
+<p>
+Отправляйся в случайную точку мира
+и начинай новое приключение.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📍</div>
+<h3>Warp</h3>
+<p>
+Используй серверные точки перемещения
+для удобного путешествия по миру.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">✨</div>
+<h3>Action & Stuff</h3>
+<p>
+Улучшенные анимации, визуальные эффекты
+и более красивое ощущение Bedrock Edition.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     HARDCORE
+===================================================== -->
+
+<section class="section hardcore reveal" id="hardcore">
+
+<div class="hardcore-content">
+
+<h2>
+<span>HARDCORE</span>
+MODE
+</h2>
+
+<p>
+
+Это не обычный Survival.
+Здесь нужно внимательно относиться к каждому сражению,
+исследованию пещер, ночным путешествиям и опасным местам.
+
+</p>
+
+<div class="rules-list">
+
+<div class="rule">❤️ Одна жизнь</div>
+<div class="rule">☠️ Смерть имеет значение</div>
+<div class="rule">🌙 Опасные ночи</div>
+<div class="rule">⛏️ Свободное строительство</div>
+<div class="rule">🏰 Кланы</div>
+<div class="rule">🛡️ Защита территории</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW TO START
+===================================================== -->
+
+<section class="section reveal">
+
+<div class="section-title">
+КАК <span>НАЧАТЬ</span>
+</div>
+
+<p class="section-description">
+Первый вход на сервер занимает всего несколько шагов.
+</p>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">1️⃣</div>
+<h3>Открой Minecraft</h3>
+<p>
+Запусти Minecraft Bedrock Edition
+на поддерживаемой версии.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">2️⃣</div>
+<h3>Добавь сервер</h3>
+<p>
+Открой список серверов и добавь IP
+и порт сервера.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">3️⃣</div>
+<h3>Зайди в мир</h3>
+<p>
+Выбери сервер и подключись.
+После входа внимательно изучи правила.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">4️⃣</div>
+<h3>Выживай</h3>
+<p>
+Собирай ресурсы, строй убежище,
+создавай клан и исследуй мир.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     COMMANDS
+===================================================== -->
+
+<section class="section reveal" id="commands">
+
+<div class="section-title">
+КОМАНДЫ <span>СЕРВЕРА</span>
+</div>
+
+<p class="section-description">
+Основные команды для игры. Конкретный набор команд зависит
+от установленных на сервере аддонов.
+</p>
+
+<input
+class="command-search"
+id="commandSearch"
+placeholder="🔎 Поиск команды..."
+>
+
+<div class="commands" id="commandsList">
+
+<div class="command">
+<div>
+<code>/help</code>
+<br>
+<small>Помощь</small>
+</div>
+<button class="copy" data-command="/help">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/spawn</code>
+<br>
+<small>Вернуться на спавн</small>
+</div>
+<button class="copy" data-command="/spawn">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/home</code>
+<br>
+<small>Телепортация домой</small>
+</div>
+<button class="copy" data-command="/home">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/sethome</code>
+<br>
+<small>Создать Home</small>
+</div>
+<button class="copy" data-command="/sethome">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/delhome</code>
+<br>
+<small>Удалить Home</small>
+</div>
+<button class="copy" data-command="/delhome">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/tpa</code>
+<br>
+<small>Запрос телепортации</small>
+</div>
+<button class="copy" data-command="/tpa">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/tpaccept</code>
+<br>
+<small>Принять TPA</small>
+</div>
+<button class="copy" data-command="/tpaccept">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/tpdeny</code>
+<br>
+<small>Отклонить TPA</small>
+</div>
+<button class="copy" data-command="/tpdeny">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/rtp</code>
+<br>
+<small>Случайная телепортация</small>
+</div>
+<button class="copy" data-command="/rtp">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/warp</code>
+<br>
+<small>Точки сервера</small>
+</div>
+<button class="copy" data-command="/warp">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/msg</code>
+<br>
+<small>Личное сообщение</small>
+</div>
+<button class="copy" data-command="/msg">COPY</button>
+</div>
+
+<div class="command">
+<div>
+<code>/rules</code>
+<br>
+<small>Правила</small>
+</div>
+<button class="copy" data-command="/rules">COPY</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CLANS
+===================================================== -->
+
+<section class="section reveal" id="clans">
+
+<div class="section-title">
+СИСТЕМА <span>КЛАНОВ</span>
+</div>
+
+<p class="section-description">
+Объединяйтесь с другими игроками и создавайте собственные
+группы для совместного выживания.
+</p>
+
+<div class="clan-area">
+
+<div class="clan-card">
+
+<div class="banner"></div>
+
+<h3>СВОЙ КЛАН</h3>
+
+<p>
+Создайте название, приглашайте игроков,
+развивайте свою базу и защищайте территорию.
+Клан может стать настоящей командой сервера.
+</p>
+
+</div>
+
+<div class="clan-card">
+
+<div style="font-size:70px;margin-bottom:25px;">
+⚔️
+</div>
+
+<h3>КОМАНДНАЯ ИГРА</h3>
+
+<p>
+Ищите союзников, распределяйте ресурсы,
+стройте общую базу и исследуйте мир вместе.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     LAND CLAIM
+===================================================== -->
+
+<section class="section reveal">
+
+<div class="section-title">
+ЗАЩИТА <span>ТЕРРИТОРИИ</span>
+</div>
+
+<p class="section-description">
+На сервере используется система защиты территорий.
+Перед строительством базы обязательно ознакомьтесь
+с правилами установленного Land Claim аддона.
+</p>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">🗺️</div>
+<h3>Выбери место</h3>
+<p>
+Найди подходящую территорию для будущей базы.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📐</div>
+<h3>Создай приват</h3>
+<p>
+Используй систему Land Claim
+для защиты своей территории.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">👥</div>
+<h3>Добавь игроков</h3>
+<p>
+Разрешай друзьям и участникам клана
+работать на территории.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ADDONS
+===================================================== -->
+
+<section class="section reveal" id="addons">
+
+<div class="section-title">
+УСТАНОВЛЕННЫЕ <span>АДДОНЫ</span>
+</div>
+
+<p class="section-description">
+Основные системы, которые используются для создания
+особой атмосферы сервера.
+</p>
+
+<div class="addons">
+
+<div class="addon">
+
+<div class="addon-image"
+style="background-image:url('https://minireview.io/common/uploads/review/47687beff200186f128b5c75d968505c.jpg')">
+</div>
+
+<div class="addon-body">
+
+<h3>🏰 Baku Land Claim</h3>
+
+<p>
+Система защиты территорий и построек.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="addon">
+
+<div class="addon-image"
+style="background-image:url('https://livedoor.blogimg.jp/yuki530-minecraftpe/imgs/3/f/3fd0289e.png')">
+</div>
+
+<div class="addon-body">
+
+<h3>⚔️ Bedrock Clans+</h3>
+
+<p>
+Кланы, игроки, совместное развитие
+и командная игра.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="addon">
+
+<div class="addon-image"
+style="background-image:url('https://i.pinimg.com/736x/43/f2/40/43f24027f5df75db29a8b0443cb8de07.jpg')">
+</div>
+
+<div class="addon-body">
+
+<h3>☁️ Cloud Commands</h3>
+
+<p>
+Дополнительная система команд
+и серверных функций.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="addon">
+
+<div class="addon-image"
+style="background-image:url('https://games.fozzy.com/_ipx/_/images/carousel/minecraft-bedrock-screenshot-4.jpg')">
+</div>
+
+<div class="addon-body">
+
+<h3>✨ Action & Stuff</h3>
+
+<p>
+Дополнительные визуальные эффекты
+и улучшенные анимации.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     GALLERY
+===================================================== -->
+
+<section class="section reveal" id="gallery">
+
+<div class="section-title">
+МИР <span>HARDCORE KINGDOM</span>
+</div>
+
+<p class="section-description">
+Большая галерея Minecraft. Изображения загружаются
+из интернета.
+</p>
+
+<div class="gallery">
+
+<a href="https://games.fozzy.com/_ipx/_/images/carousel/minecraft-bedrock-screenshot-4.jpg"
+target="_blank">
+
+<img src="https://games.fozzy.com/_ipx/_/images/carousel/minecraft-bedrock-screenshot-4.jpg">
+
+</a>
+
+<a href="https://www.9minecraft.net/wp-content/uploads/2023/10/minecraft-savanna-village-seed-pe-bedrock.jpeg"
+target="_blank">
+
+<img src="https://www.9minecraft.net/wp-content/uploads/2023/10/minecraft-savanna-village-seed-pe-bedrock.jpeg">
+
+</a>
+
+<a href="https://i.pinimg.com/736x/43/f2/40/43f24027f5df75db29a8b0443cb8de07.jpg"
+target="_blank">
+
+<img src="https://i.pinimg.com/736x/43/f2/40/43f24027f5df75db29a8b0443cb8de07.jpg">
+
+</a>
+
+<a href="https://minireview.io/common/uploads/review/47687beff200186f128b5c75d968505c.jpg"
+target="_blank">
+
+<img src="https://minireview.io/common/uploads/review/47687beff200186f128b5c75d968505c.jpg">
+
+</a>
+
+<a href="https://livedoor.blogimg.jp/yuki530-minecraftpe/imgs/3/f/3fd0289e.png"
+target="_blank">
+
+<img src="https://livedoor.blogimg.jp/yuki530-minecraftpe/imgs/3/f/3fd0289e.png">
+
+</a>
+
+<a href="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=90"
+target="_blank">
+
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=90">
+
+</a>
+
+<a href="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=90"
+target="_blank">
+
+<img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=90">
+
+</a>
+
+<a href="https://www.9minecraft.net/wp-content/uploads/2023/10/minecraft-savanna-village-seed-pe-bedrock.jpeg"
+target="_blank">
+
+<img src="https://www.9minecraft.net/wp-content/uploads/2023/10/minecraft-savanna-village-seed-pe-bedrock.jpeg">
+
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     RULES
+===================================================== -->
+
+<section class="section reveal" id="rules">
+
+<div class="section-title">
+ПРАВИЛА <span>СЕРВЕРА</span>
+</div>
+
+<div class="rules">
+
+<div class="big-rule">
+<strong>01 — Не мешай другим</strong>
+<p>
+Не разрушай чужие постройки и не мешай игрокам без причины.
+</p>
+</div>
+
+<div class="big-rule">
+<strong>02 — Уважение</strong>
+<p>
+Оскорбления, спам и намеренная провокация игроков запрещены.
+</p>
+</div>
+
+<div class="big-rule">
+<strong>03 — Читы</strong>
+<p>
+Использование запрещённых клиентов и нечестных преимуществ
+может привести к наказанию.
+</p>
+</div>
+
+<div class="big-rule">
+<strong>04 — Приват</strong>
+<p>
+Не пытайся обходить защиту чужой территории.
+</p>
+</div>
+
+<div class="big-rule">
+<strong>05 — Кланы</strong>
+<p>
+Не используй систему кланов для обхода правил сервера.
+</p>
+</div>
+
+<div class="big-rule">
+<strong>06 — Hardcore</strong>
+<p>
+Помни: это Hardcore. Риск смерти является частью игры.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section class="section reveal">
+
+<div class="section-title">
+FAQ <span>ВОПРОСЫ</span>
+</div>
+
+<div class="faq">
+
+<div class="faq-item">
+
+<button class="faq-question">
+Какая версия Minecraft нужна?
+<span>＋</span>
+</button>
+
+<div class="faq-answer">
+Используй ту версию Bedrock, которую поддерживает
+текущая сборка сервера.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+Можно ли играть с телефона?
+<span>＋</span>
+</button>
+
+<div class="faq-answer">
+Да. Сервер рассчитан на Minecraft Bedrock / PE.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+Можно ли создать клан?
+<span>＋</span>
+</button>
+
+<div class="faq-answer">
+Да, если система кланов включена на сервере.
+Используй команды установленного кланового аддона.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+Как защитить дом?
+<span>＋</span>
+</button>
+
+<div class="faq-answer">
+Используй установленную систему Land Claim
+и обязательно проверь её команды.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+Можно ли использовать Action & Stuff?
+<span>＋</span>
+</button>
+
+<div class="faq-answer">
+Да, если сборка сервера и клиент поддерживают
+соответствующие визуальные ресурсы.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta reveal">
+
+<h2>
+ГОТОВ<br>
+К ВЫЖИВАНИЮ?
+</h2>
+
+<p>
+Одна жизнь. Один мир. Один шанс.
+</p>
+
+<button class="btn btn-green" id="copyIP">
+📋 СКОПИРОВАТЬ IP
+</button>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="footer-inner">
+
+<div class="footer-brand">
+
+<div class="logo">
+
+<div class="logo-block"></div>
+
+HARDCORE KINGDOM
+
+</div>
+
+<p>
+Minecraft Bedrock Hardcore сервер.
+Кланы, приват, путешествия, строительство
+и настоящее выживание.
+</p>
+
+</div>
+
+
+<div class="footer-column">
+
+<h4>Сервер</h4>
+
+<a href="#server">Подключение</a>
+<a href="#hardcore">Hardcore</a>
+<a href="#clans">Кланы</a>
+<a href="#addons">Аддоны</a>
+
+</div>
+
+
+<div class="footer-column">
+
+<h4>Помощь</h4>
+
+<a href="#commands">Команды</a>
+<a href="#rules">Правила</a>
+<a href="#gallery">Галерея</a>
+
+</div>
+
+
+<div class="footer-column">
+
+<h4>Информация</h4>
+
+<a href="#home">Главная</a>
+<a href="#server">IP сервера</a>
+<a href="#server">Порт</a>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+© <span id="year"></span> HARDCORE KINGDOM.
+Minecraft является товарным знаком Mojang Studios.
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const navLinks =
+document.getElementById("navLinks");
+
+menuBtn.addEventListener("click",()=>{
+
+    navLinks.classList.toggle("open");
+
+});
+
+
+document.querySelectorAll(".nav-links a")
+.forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        navLinks.classList.remove("open");
+
+    });
+
+});
+
+
+/* =========================================================
+   COPY IP
+========================================================= */
+
+const SERVER_IP =
+"play.hardcorekingdom.ru";
+
+const copyIP =
+document.getElementById("copyIP");
+
+copyIP.addEventListener("click",async()=>{
+
+    try{
+
+        await navigator.clipboard.writeText(SERVER_IP);
+
+        copyIP.textContent="✓ IP СКОПИРОВАН";
+
+        setTimeout(()=>{
+
+            copyIP.textContent="📋 СКОПИРОВАТЬ IP";
+
+        },2000);
+
+    }catch(e){
+
+        alert("IP сервера: "+SERVER_IP);
+
+    }
+
+});
+
+
+document.getElementById("serverIP")
+.addEventListener("click",async()=>{
+
+    try{
+
+        await navigator.clipboard.writeText(SERVER_IP);
+
+        alert("IP скопирован!");
+
+    }catch(e){
+
+        alert(SERVER_IP);
+
+    }
+
+});
+
+
+/* =========================================================
+   COPY COMMANDS
+========================================================= */
+
+document.querySelectorAll(".copy")
+.forEach(button=>{
+
+    button.addEventListener("click",async()=>{
+
+        const command =
+        button.dataset.command;
+
+        try{
+
+            await navigator.clipboard.writeText(command);
+
+            const old =
+            button.textContent;
+
+            button.textContent="✓";
+
+            setTimeout(()=>{
+
+                button.textContent=old;
+
+            },1200);
+
+        }catch(e){
+
+            alert(command);
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   COMMAND SEARCH
+========================================================= */
+
+const commandSearch =
+document.getElementById("commandSearch");
+
+const commandItems =
+document.querySelectorAll(".command");
+
+commandSearch.addEventListener("input",()=>{
+
+    const search =
+    commandSearch.value.toLowerCase();
+
+    commandItems.forEach(item=>{
+
+        const text =
+        item.innerText.toLowerCase();
+
+        item.style.display =
+        text.includes(search)
+        ? "flex"
+        : "none";
+
+    });
+
+});
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+document.querySelectorAll(".faq-question")
+.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        const item =
+        button.parentElement;
+
+        item.classList.toggle("open");
+
+        const symbol =
+        button.querySelector("span");
+
+        symbol.textContent =
+        item.classList.contains("open")
+        ? "−"
+        : "＋";
+
+    });
+
+});
+
+
+/* =========================================================
+   SCROLL ANIMATION
+========================================================= */
+
+const observer =
+new IntersectionObserver(
+
+(entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+},
+
+{
+    threshold:.12
+}
+
+);
+
+
+document.querySelectorAll(".reveal")
+.forEach(element=>{
+
+    observer.observe(element);
+
+});
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year")
+.textContent =
+new Date().getFullYear();
+
+
+/* =========================================================
+   FLOATING PARTICLES
+========================================================= */
+
+function createParticle(){
+
+    const particle =
+    document.createElement("div");
+
+    particle.className="particle";
+
+    particle.style.left =
+    Math.random()*100+"%";
+
+    particle.style.animationDuration =
+    (5+Math.random()*8)+"s";
+
+    particle.style.animationDelay =
+    Math.random()*4+"s";
+
+    document.body.appendChild(particle);
+
+    setTimeout(()=>{
+
+        particle.remove();
+
+    },15000);
+
+}
+
+
+setInterval(createParticle,900);
+
+
+/* =========================================================
+   SMOOTH NAVIGATION
+========================================================= */
+
+document.querySelectorAll('a[href^="#"]')
+.forEach(anchor=>{
+
+    anchor.addEventListener("click",function(e){
+
+        const target =
+        document.querySelector(
+            this.getAttribute("href")
+        );
+
+        if(target){
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
